@@ -1,28 +1,21 @@
+import random
 def jogar():
-    import random
 
-    print("Bem vindo ao jogo da forca")
 
-    arquivo = open("palavras1.txt", "r")
-    palavras = []
+    mensagemDeAbertura()
 
-    for linha in arquivo:
-        linha = linha.strip()
-        palavras.append(linha)
+    palavra_secreta = geraPalavraSecreta()
 
-    arquivo.close()
+    configuraLetrasAcertadas(palavra_secreta)
 
-    numero = random.randrange(0,len(palavras))
-    palavra_secreta = palavras[numero].upper()
 
-    letras_acertadas = ['_' for letra in palavra_secreta]
 
     acertou = False
     enforcou = False
     erros = 0
 
     while(not acertou and not enforcou):
-        chute = input('Qual letra?\n').upper()
+        chute = pedirChute()
         if(chute in palavra_secreta):
             posicao = 0
 
@@ -43,4 +36,29 @@ def jogar():
     else:
         print('Voce foi enforcado')
 
-jogar()
+
+
+def mensagemDeAbertura():
+    print("Bem vindo ao jogo da forca")
+
+def geraPalavraSecreta():
+    arquivo = open("palavras1.txt", "r")
+    palavras = []
+
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+
+    arquivo.close()
+
+    numero = random.randrange(0, len(palavras))
+    palavra_secreta = palavras[numero].upper()
+
+    return palavra_secreta
+
+def configuraLetrasAcertadas(palavra):
+    letras_acertadas = ['_' for letra in palavra]
+
+def pedirChute():
+    chute = input('Qual letra?\n').upper()
+    return chute
